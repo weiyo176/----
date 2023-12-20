@@ -4,10 +4,52 @@
     <title>Johnson's Rule Gantt Chart</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+          font-family: sans-serif;
+        }
+        .chartMenu {
+          width: 100vw;
+          height: 40px;
+          background: #1A1A1A;
+          color: rgba(54, 162, 235, 1);
+        }
+        .chartMenu p {
+          padding: 10px;
+          font-size: 20px;
+        }
+        .chartCard {
+          width: 100vw;
+          height: calc(100vh - 40px);
+          background: rgba(54, 162, 235, 0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .chartBox {
+          width: 700px;
+          padding: 20px;
+          border-radius: 20px;
+          border: solid 3px rgba(54, 162, 235, 1);
+          background: white;
+        }
+      </style>
 </head>
 <body>
-    <canvas id="myChart2"></canvas>
-    <canvas id="myChart3"></canvas>
+    <div class="chartCard">
+        <div class="chartBox">
+          <canvas id="myChart2"></canvas>
+        </div>
+    </div>
+    <div class="chartCard">
+        <div class="chartBox">
+          <canvas id="myChart3"></canvas>
+        </div>
+      </div>
+    <!-- <canvas id="myChart3"></canvas> -->
+    <!-- <canvas id="myChart2"></canvas> -->
     <script src="ThreeJohnsonjs.js"></script>
 </body>
 </html>
