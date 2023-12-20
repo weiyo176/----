@@ -111,6 +111,10 @@ function plotGanttChart(n, m, schedule, id) {
             // 懸浮不顯示提示
             ,
             plugins: {
+                title: {
+                    display: true,
+                    text: 'Johnson\'s Rule with ' + n.toString() + ' machines and ' + m.toString() + ' jobs'
+                },
                 tooltip: {
                     enabled: true
                 },
