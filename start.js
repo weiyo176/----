@@ -137,6 +137,12 @@ function johnsonRule3(jobs) {
     return schedule_job1.concat(schedule_job2);
 }
 
+// when choose excel file, the name of file will appear 
+function displayFileName(input) {
+    var fileName = input.files[0].name;
+    document.getElementById('selectedFileName').innerText = fileName;
+}
+
 // Ensure that SheetJS library is included before this script
 
 function readExcel() {

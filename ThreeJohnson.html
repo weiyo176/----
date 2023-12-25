@@ -36,6 +36,9 @@
           border: solid 3px rgba(54, 162, 235, 1);
           background: white;
         }
+        input[type="file"] {
+          display: none;
+        }
       </style>
 </head>
 <body>
@@ -55,7 +58,11 @@
 
     <!-- <script src="ThreeJohnsonjs.js"></script> -->
 
-    <input type="file" id="excelFileInput" accept=".xlsx, .xls"/> <br>
+    <!-- <input type="file" id="excelFileInput" accept=".xlsx, .xls"/> <br> -->
+    <label for="excelFileInput">Select an Excel file:</label>
+    <input type="file" id="excelFileInput" accept=".xlsx, .xls" onchange="displayFileName(this)"/>
+    <span id="selectedFileName"></span>
+    <br>
     <button id="implement" onclick="readExcel()">Read Excel</button>
     
     <!-- 這是表格資訊 -->
