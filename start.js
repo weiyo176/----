@@ -1,8 +1,12 @@
 //schedule = ["Start Time", "End Time", "Machine", "Job Name"]
 function plotGanttChart(n, m, schedule, id) {
+    // 假設你的圖表存儲在一個名為 myChart 的變量中
+    if (window.myChart != null) {
+        window.myChart.destroy();
+    }
+
     let ctx = document.getElementById(id).getContext('2d');
-
-
+    
     let machineName = [];
     for (let i = 1; i <= n; i++) {
         machineName.push("Machine " + i.toString());
@@ -14,7 +18,7 @@ function plotGanttChart(n, m, schedule, id) {
     let currentBackgroundColor = [];
     let labels = [];
     let temp = [];
-
+    
     //schedule = ["Start Time", "End Time", "Machine", "Job Name"]
     schedule.forEach((job, index) => {
         temp.push([job[0], job[1]]);
@@ -26,7 +30,7 @@ function plotGanttChart(n, m, schedule, id) {
     });
     console.log("labels", labels);
     console.log(labels);
-
+    
     for (let i = 0; i < m; i++) {
         RandonColor = `hsl(${i / n * 180}, 100%, 75%)`;
         datasets.push({
@@ -70,17 +74,18 @@ function plotGanttChart(n, m, schedule, id) {
                     enabled: true
                 },
                 datalabels: {
-                formatter: function (value, context) {
-                    console.log(context)
-                    console.log(value)
-                    return value[1] - value[0];
+                    formatter: function (value, context) {
+                        console.log(context)
+                        console.log(value)
+                        return value[1] - value[0];
+                    }
                 }
-            }
             }
         },
         plugins: [ChartDataLabels]
     };
-    new Chart(ctx, config);
+    window.myChart = new Chart(ctx, config);
+    // new Chart(ctx, config);
 }
 
 function johnsonRule2(jobs) {
@@ -194,32 +199,32 @@ function displayExcelData(jsonData) {
     excelDataDiv.appendChild(table);
 
     // 判斷是two 還是 three machine
-    if (jsonData[0].length-1 == 2){
+    if (jsonData[0].length - 1 == 2) {
         twoMachine(jsonData);
     }
-    if (jsonData[0].length-1 == 3)
+    if (jsonData[0].length - 1 == 3)
         threeMachine(jsonData);
 }
 
 function threeMachine(jsonData) {
 
-    const row = jsonData.length -1
-    const col = jsonData[1].length -1
+    const row = jsonData.length - 1
+    const col = jsonData[1].length - 1
 
     // 宣告 user_jobs
     const user_jobs = new Array(row);
-    for (let i = 0; i < row; i++){
+    for (let i = 0; i < row; i++) {
         user_jobs[i] = new Array(col);
     }
 
     for (var i = 1; i < jsonData.length; i++) {
-        for (var j = 1 ; j < jsonData[1].length; j++) {
-            user_jobs[i-1][j-1] = jsonData[i][j];
+        for (var j = 1; j < jsonData[1].length; j++) {
+            user_jobs[i - 1][j - 1] = jsonData[i][j];
         }
     }
 
     for (var i = 0; i < user_jobs.length; i++) {
-        for (var j = 0; j < user_jobs[0].length; j++){
+        for (var j = 0; j < user_jobs[0].length; j++) {
             console.log(user_jobs[i][j]);
         }
     }
@@ -257,28 +262,28 @@ function threeMachine(jsonData) {
     // test();
     //(機器數量,工作數量,排程=[開始時間,結束時間,機器,工作])
     // plotGanttChart(user_jobs[0].length, user_jobs.length, schedule,'myChart3'); // 畫圖
-    plotGanttChart(user_jobs[0].length, user_jobs.length, schedule,'myChart1');
+    plotGanttChart(user_jobs[0].length, user_jobs.length, schedule, 'myChart1');
 }
 
 function twoMachine(jsonData) {
 
-    const row = jsonData.length -1
-    const col = jsonData[1].length -1
+    const row = jsonData.length - 1
+    const col = jsonData[1].length - 1
 
     // 宣告 user_jobs
     const user_jobs = new Array(row);
-    for (let i = 0; i < row; i++){
+    for (let i = 0; i < row; i++) {
         user_jobs[i] = new Array(col);
     }
 
     for (var i = 1; i < jsonData.length; i++) {
-        for (var j = 1 ; j < jsonData[1].length; j++) {
-            user_jobs[i-1][j-1] = jsonData[i][j];
+        for (var j = 1; j < jsonData[1].length; j++) {
+            user_jobs[i - 1][j - 1] = jsonData[i][j];
         }
     }
 
     for (var i = 0; i < user_jobs.length; i++) {
-        for (var j = 0; j < user_jobs[0].length; j++){
+        for (var j = 0; j < user_jobs[0].length; j++) {
             console.log(user_jobs[i][j]);
         }
     }
@@ -313,5 +318,5 @@ function twoMachine(jsonData) {
     console.log(user_jobs.length);
     console.log(user_jobs.length, schedule);
     // plotGanttChart(user_jobs[0].length, user_jobs.length, schedule,'myChart2'); // 畫圖
-    plotGanttChart(user_jobs[0].length, user_jobs.length, schedule,'myChart1'); // 畫圖
+    plotGanttChart(user_jobs[0].length, user_jobs.length, schedule, 'myChart1'); // 畫圖
 }
