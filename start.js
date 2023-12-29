@@ -177,7 +177,7 @@ function readExcel() {
         // Display the JSON data
         var excelDataDiv = document.getElementById('excelData');
         excelDataDiv.innerHTML = '<pre>' + JSON.stringify(jsonData, null, 2) + '</pre>';
-        displayExcelData(jsonData);
+        displayExcelData(jsonData); // 轉成 table 並輸出
     };
 
     // Read the file as an array buffer
