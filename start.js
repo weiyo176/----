@@ -96,24 +96,14 @@ function johnsonRule2(jobs) {
     let jobb = [...jobs];
     // 排序工作由小到大
     jobs.sort((a, b) => Math.min(a[0], a[1]) - Math.min(b[0], b[1]));
-
-    let schedule_job1 = [];  // Front
-    let schedule_job2 = [];  // Back
-    let machine1_jobs = jobs.map(job => job[0]);
-    let machine2_jobs = jobs.map(job => job[1]);
+    let schedule = [];
 
     for (let i = 0; i < n; i++) {
         // 排序好的工作去找原始的索引值
         let index = jobb.findIndex(job => job[0] === jobs[i][0] && job[1] === jobs[i][1]) + 1;
-        // 判斷工作要放前面還後面(機器一比較小，放在前)
-        if (machine1_jobs[i] < machine2_jobs[i]) {
-            schedule_job1.push(index);
-        } else {
-            schedule_job2.unshift(index);
-        }
+        schedule.push(index);
     }
-    // 前+後就是最佳化排序
-    return schedule_job1.concat(schedule_job2);
+    return schedule
 }
 
 // JavaScript 版本的 Johnson's Rule
@@ -122,20 +112,13 @@ function johnsonRule3(jobs) {
     let jobb = [...jobs];
     jobs.sort((a, b) => Math.min(a[0] + a[1], a[1] + a[2]) - Math.min(b[0] + b[1], b[1] + b[2]));
 
-    let schedule_job1 = [];  // Front
-    let schedule_job2 = [];  // Back
-    let machine1_jobs = jobs.map(job => job[0] + job[1]);
-    let machine2_jobs = jobs.map(job => job[1] + job[2]);
+    let schedule = [];
 
     for (let i = 0; i < n; i++) {
         let index = jobb.indexOf(jobs[i]) + 1;
-        if (machine1_jobs[i] < machine2_jobs[i]) {
-            schedule_job1.push(index);
-        } else {
-            schedule_job2.unshift(index);
-        }
+        schedule.push(index)
     }
-    return schedule_job1.concat(schedule_job2);
+    return schedule;
 }
 
 // when choose excel file, the name of file will appear 
@@ -242,11 +225,12 @@ function threeMachine(jsonData) {
             console.log(user_jobs[i][j]);
         }
     }
-
-    console.log("用戶輸入的工作：", user_jobs);
+    //複製陣列
     let Ojob = [...user_jobs];
+    console.log("用戶輸入的工作：", Ojob);
     let user_optimal_schedule = johnsonRule3(user_jobs);
     console.log("最佳排程的工作順序：", user_optimal_schedule);
+    console.log("最佳排程的工作：", user_jobs);
     Show_Optimal(user_optimal_schedule); // 印出最佳化順序
 
     let schedule = [];
@@ -302,11 +286,12 @@ function twoMachine(jsonData) {
             console.log(user_jobs[i][j]);
         }
     }
-
-    console.log("用戶輸入的工作：", user_jobs);
+    //複製陣列
     let Ojob = [...user_jobs];
+    console.log("用戶輸入的工作：", Ojob);
     let userOptimalSchedule = johnsonRule2(user_jobs); // 使用 Johnson's Rule 獲得最佳排程
     console.log("最佳排程的工作順序：", userOptimalSchedule);
+    console.log("最佳排程的工作：", user_jobs);
     Show_Optimal(userOptimalSchedule); // 印出最佳化順序
 
     let schedule = [];
@@ -335,4 +320,14 @@ function twoMachine(jsonData) {
     console.log(user_jobs.length, schedule);
     // plotGanttChart(user_jobs[0].length, user_jobs.length, schedule,'myChart2'); // 畫圖
     plotGanttChart(user_jobs[0].length, user_jobs.length, schedule, 'myChart1', userOptimalSchedule,jsonData); // 畫圖
+}
+function test1() {
+    let Data =[['Job', 'machine 1', 'machine 2'],[1, 5, 5],[2, 4, 3],[3, 8, 9],[4, 2, 7],[5, 6, 8],[6, 12, 15]];
+    displayExcelData(Data);
+    twoMachine(Data);
+}
+function test2() {
+    let Data = [['Job', 'machine 1', 'machine 2', 'machine3'],[1, 10, 5, 12],[2, 5, 10, 18],[3, 7, 3, 15],[4, 1, 5, 20]];
+    displayExcelData(Data);
+    threeMachine(Data);
 }

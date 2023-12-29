@@ -18,13 +18,16 @@ def johnsonRule(jobs):
     for i in range(n):
         #排序好的工作去找原始的索引值
         index = jobb.index(jobs[i]) + 1
+        print('index',index)
+        schedule_job1.append(index)
         #判斷工作要放前面還後面(機器一比較小，放在前)
-        if machine1_jobs[i] < machine2_jobs[i]:
-            schedule_job1.append(index)
-        else:
-            schedule_job2.insert(0, index)
+        # if machine1_jobs[index-1] < machine2_jobs[index-1]:
+        #     schedule_job1.append(index)
+        # else:
+        #     schedule_job2.insert(0, index)
     #前+後就是最佳化排序
-    return schedule_job1 + schedule_job2
+    # return schedule_job1 + schedule_job2
+    return schedule_job1
 def get_user_input():
     try:
         num_jobs = int(input("請輸入工作的數量："))
