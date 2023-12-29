@@ -209,8 +209,31 @@ function displayExcelData(jsonData) {
     if (jsonData[0].length - 1 == 2) {
         twoMachine(jsonData);
     }
-    if (jsonData[0].length - 1 == 3)
+    if (jsonData[0].length - 1 == 3){
+        var table2 = document.createElement('table');
+        for (var i = 0; i < jsonData.length; i++) {
+            var dataRow = table2.insertRow(i);
+            for (var j = 0; j < 3; j++) {
+                var td = dataRow.insertCell();
+                if (j == 0 ) {
+                    td.innerHTML = jsonData[i][j];
+                } else if(i == 0) {
+                    td.innerHTML = jsonData[i][j] +" + "+ jsonData[i][j+1];
+                }
+                else {
+                    var sum = Number(jsonData[i][j]) + Number(jsonData[i][j+1]);
+                    td.innerHTML = sum.toString();
+                }
+            }
+        }
+        var br = document.createElement('br');
+        var p = document.createElement('p');
+        p.innerHTML = "機器合併後的時間:";
+        excelDataDiv.appendChild(br);
+        excelDataDiv.appendChild(p);
+        excelDataDiv.appendChild(table2);
         threeMachine(jsonData);
+    }
 }
 function Show_Optimal(data) {
     // Get the div where the table will be displayed
