@@ -96,14 +96,24 @@ function johnsonRule2(jobs) {
     let jobb = [...jobs];
     // 排序工作由小到大
     jobs.sort((a, b) => Math.min(a[0], a[1]) - Math.min(b[0], b[1]));
-    let schedule = [];
+
+    let schedule_job1 = [];  // Front
+    let schedule_job2 = [];  // Back
+    let machine1_jobs = jobs.map(job => job[0]);
+    let machine2_jobs = jobs.map(job => job[1]);
 
     for (let i = 0; i < n; i++) {
         // 排序好的工作去找原始的索引值
         let index = jobb.findIndex(job => job[0] === jobs[i][0] && job[1] === jobs[i][1]) + 1;
-        schedule.push(index);
+        // 判斷工作要放前面還後面(機器一比較小，放在前)
+        if (machine1_jobs[i] < machine2_jobs[i]) {
+            schedule_job1.push(index);
+        } else {
+            schedule_job2.unshift(index);
+        }
     }
-    return schedule
+    // 前+後就是最佳化排序
+    return schedule_job1.concat(schedule_job2);
 }
 
 // JavaScript 版本的 Johnson's Rule
@@ -112,13 +122,20 @@ function johnsonRule3(jobs) {
     let jobb = [...jobs];
     jobs.sort((a, b) => Math.min(a[0] + a[1], a[1] + a[2]) - Math.min(b[0] + b[1], b[1] + b[2]));
 
-    let schedule = [];
+    let schedule_job1 = [];  // Front
+    let schedule_job2 = [];  // Back
+    let machine1_jobs = jobs.map(job => job[0] + job[1]);
+    let machine2_jobs = jobs.map(job => job[1] + job[2]);
 
     for (let i = 0; i < n; i++) {
         let index = jobb.indexOf(jobs[i]) + 1;
-        schedule.push(index)
+        if (machine1_jobs[i] < machine2_jobs[i]) {
+            schedule_job1.push(index);
+        } else {
+            schedule_job2.unshift(index);
+        }
     }
-    return schedule;
+    return schedule_job1.concat(schedule_job2);
 }
 
 // when choose excel file, the name of file will appear 
