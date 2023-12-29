@@ -1,5 +1,5 @@
 //schedule = ["Start Time", "End Time", "Machine", "Job Name"]
-function plotGanttChart(n, m, schedule, id) {
+function plotGanttChart(n, m, schedule, id, JobNum) {
     // 假設你的圖表存儲在一個名為 myChart 的變量中
     if (window.myChart != null) {
         window.myChart.destroy();
@@ -32,9 +32,9 @@ function plotGanttChart(n, m, schedule, id) {
     console.log(labels);
     
     for (let i = 0; i < m; i++) {
-        RandonColor = `hsl(${i / n * 180}, 100%, 75%)`;
+        RandonColor = `hsl(${i / (m/2) * 180}, 100%, 75%)`;
         datasets.push({
-            label: `job ${i + 1}`,
+            label: `job ${JobNum[i]}`,
             data: labels[i],
             backgroundColor: RandonColor,
             borderColor: RandonColor,
@@ -211,7 +211,14 @@ function displayExcelData(jsonData) {
     if (jsonData[0].length - 1 == 3)
         threeMachine(jsonData);
 }
+function Show_Optimal(data) {
+    // Get the div where the table will be displayed
+    var optimization = document.getElementById('optimization');
+    // 改 data 格式
 
+    var formattedData = data.join('  \u2192  ')
+    optimization.innerHTML = "最佳化順序：" + formattedData;
+}
 function threeMachine(jsonData) {
 
     const row = jsonData.length - 1
@@ -239,6 +246,7 @@ function threeMachine(jsonData) {
     let Ojob = [...user_jobs];
     let user_optimal_schedule = johnsonRule3(user_jobs);
     console.log("最佳排程的工作順序：", user_optimal_schedule);
+    Show_Optimal(user_optimal_schedule); // 印出最佳化順序
 
     let schedule = [];
     let time_counter_machine1 = 0;
@@ -268,7 +276,7 @@ function threeMachine(jsonData) {
     // test();
     //(機器數量,工作數量,排程=[開始時間,結束時間,機器,工作])
     // plotGanttChart(user_jobs[0].length, user_jobs.length, schedule,'myChart3'); // 畫圖
-    plotGanttChart(user_jobs[0].length, user_jobs.length, schedule, 'myChart1');
+    plotGanttChart(user_jobs[0].length, user_jobs.length, schedule, 'myChart1', user_optimal_schedule);
 }
 
 function twoMachine(jsonData) {
@@ -298,6 +306,7 @@ function twoMachine(jsonData) {
     let Ojob = [...user_jobs];
     let userOptimalSchedule = johnsonRule2(user_jobs); // 使用 Johnson's Rule 獲得最佳排程
     console.log("最佳排程的工作順序：", userOptimalSchedule);
+    Show_Optimal(userOptimalSchedule); // 印出最佳化順序
 
     let schedule = [];
     let time = [0];
@@ -324,5 +333,5 @@ function twoMachine(jsonData) {
     console.log(user_jobs.length);
     console.log(user_jobs.length, schedule);
     // plotGanttChart(user_jobs[0].length, user_jobs.length, schedule,'myChart2'); // 畫圖
-    plotGanttChart(user_jobs[0].length, user_jobs.length, schedule, 'myChart1'); // 畫圖
+    plotGanttChart(user_jobs[0].length, user_jobs.length, schedule, 'myChart1', userOptimalSchedule); // 畫圖
 }
