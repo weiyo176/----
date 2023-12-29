@@ -1,5 +1,5 @@
 //schedule = ["Start Time", "End Time", "Machine", "Job Name"]
-function plotGanttChart(n, m, schedule, id, JobNum) {
+function plotGanttChart(n, m, schedule, id, JobNum,jsonData) {
     // 假設你的圖表存儲在一個名為 myChart 的變量中
     if (window.myChart != null) {
         window.myChart.destroy();
@@ -9,7 +9,8 @@ function plotGanttChart(n, m, schedule, id, JobNum) {
     
     let machineName = [];
     for (let i = 1; i <= n; i++) {
-        machineName.push("Machine " + i.toString());
+        // machineName.push("Machine " + i.toString());
+        machineName.push(jsonData[0][i]); // 機器名字
     };
     // 將排程轉換成 Chart.js 所需的格式
     let datasets = [];
@@ -276,7 +277,7 @@ function threeMachine(jsonData) {
     // test();
     //(機器數量,工作數量,排程=[開始時間,結束時間,機器,工作])
     // plotGanttChart(user_jobs[0].length, user_jobs.length, schedule,'myChart3'); // 畫圖
-    plotGanttChart(user_jobs[0].length, user_jobs.length, schedule, 'myChart1', user_optimal_schedule);
+    plotGanttChart(user_jobs[0].length, user_jobs.length, schedule, 'myChart1', user_optimal_schedule, jsonData);
 }
 
 function twoMachine(jsonData) {
@@ -333,5 +334,5 @@ function twoMachine(jsonData) {
     console.log(user_jobs.length);
     console.log(user_jobs.length, schedule);
     // plotGanttChart(user_jobs[0].length, user_jobs.length, schedule,'myChart2'); // 畫圖
-    plotGanttChart(user_jobs[0].length, user_jobs.length, schedule, 'myChart1', userOptimalSchedule); // 畫圖
+    plotGanttChart(user_jobs[0].length, user_jobs.length, schedule, 'myChart1', userOptimalSchedule,jsonData); // 畫圖
 }
