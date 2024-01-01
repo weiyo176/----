@@ -144,8 +144,12 @@ function displayFileName(input) {
     document.getElementById('selectedFileName').innerText = fileName;
 }
 
-// Ensure that SheetJS library is included before this script
+function selectFile() {
+    // 點擊 "Select an Excel file" 按鈕時觸發文件輸入元素的點擊事件
+    document.getElementById('excelFileInput').click();
+}
 
+// Ensure that SheetJS library is included before this script
 function readExcel() {
 
     // Get the input element
@@ -179,11 +183,34 @@ function readExcel() {
         var excelDataDiv = document.getElementById('excelData');
         excelDataDiv.innerHTML = '<pre>' + JSON.stringify(jsonData, null, 2) + '</pre>';
         displayExcelData(jsonData); // 轉成 table 並輸出
+        
+        // Remove the g1.gif from the canvas
+        removeCanvasImage();
     };
 
     // Read the file as an array buffer
     reader.readAsArrayBuffer(file);
 }
+
+// Function to remove the image from the canvas
+function removeCanvasImage() {
+    // Get the canvas and image elements
+    var canvas = document.getElementById('myChart1');
+    var img = document.querySelector('.chartBox img');
+
+    // Check if the canvas and image elements exist
+    if (canvas && img) {
+        // Get the canvas context
+        var ctx = canvas.getContext('2d');
+
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Remove the image element
+        img.remove();
+    }
+}
+
 
 function displayExcelData(jsonData) {
     // Get the div where the table will be displayed
