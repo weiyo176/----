@@ -35,7 +35,8 @@ function plotGanttChart(n, m, schedule, id, JobNum,jsonData) {
     for (let i = 0; i < m; i++) {
         RandonColor = `hsl(${i / (m/2) * 180}, 100%, 75%)`;
         datasets.push({
-            label: `job ${JobNum[i]}`,
+            // label: `job ${JobNum[i]}`,
+            label: jsonData[i+1][0],
             data: labels[i],
             backgroundColor: RandonColor,
             borderColor: RandonColor,
