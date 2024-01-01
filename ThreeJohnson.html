@@ -199,12 +199,18 @@
           display: block;
           position: relative;
         }
-        #excelData {
+        #excelData.threemachine {
           position: absolute;
           transform: translate(0, 50%);
-          top: 250px;
+          top: 240px;
+          left: calc(5% - 65px);
+          text-align: center;
+        }
+        #excelData.twomachine {
+          position: absolute;
+          transform: translate(0, 50%);
+          top: 300px;
           left: calc(5% - 50px);
-          margin-top: 30px;
           text-align: center;
         }
         #excelData table {
@@ -214,18 +220,29 @@
         }
         #excelData th, #excelData td {
           border: 1px solid rgba(255, 255, 255, 0.7);
-          padding: 5px;
+          padding:0px 5px;
         }
         #excelData th:first-child, #excelData td:first-child,
         #excelData tr:first-child th, #excelData tr:first-child td{
           background: rgba(255, 255, 255, 0.5);
+          font-size: 13px;
+          font-weight: bold;
         }
-        #optimization {
+        #optimization.threemachine {
           position: absolute;
-          top: 600px;
+          top: 650px;
+          left: calc(5% - 65px);
+          padding: 0px 3px;
+          border-radius: 3px;
+          border: solid 2px rgba(255, 255, 255, 0.3);
+          background: rgba(255, 255, 255, 0.2);
+          font-family: "DFKai-sb";
+        }
+        #optimization.twomachine {
+          position: absolute;
+          top: 550px;
           left: calc(5% - 50px);
           padding: 0px 5px;
-          margin-top: 20px;
           border-radius: 3px;
           border: solid 2px rgba(255, 255, 255, 0.3);
           background: rgba(255, 255, 255, 0.2);

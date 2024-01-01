@@ -256,10 +256,21 @@ function displayExcelData(jsonData) {
         var br = document.createElement('br');
         var p = document.createElement('p');
         p.innerHTML = "機器合併後的時間:";
+        p.style.fontFamily = "DFKai-sb";
+        p.style.textAlign = "left";
         excelDataDiv.appendChild(br);
         excelDataDiv.appendChild(p);
         excelDataDiv.appendChild(table2);
         threeMachine(jsonData);
+    }
+    const excelDataElement = document.getElementById('excelData');
+    const optimizationElement = document.getElementById('optimization');
+    if (jsonData[0].length - 1 === 2) {
+        excelDataElement.classList.add('twomachine');
+        optimizationElement.classList.add('twomachine');
+    } else if (jsonData[0].length - 1 === 3) {
+        excelDataElement.classList.add('threemachine');
+        optimizationElement.classList.add('threemachine');
     }
 }
 function Show_Optimal(data) {
