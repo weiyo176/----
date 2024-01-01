@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script> <!-- to read excel file-->
     <style>
-        
+        /* 原本的 
         * {
           margin: 0;
           padding: 0;
@@ -40,33 +40,253 @@
         input[type="file"] {
           display: none;
         }
+        */
+        /* 最新版 */
+        * {
+          margin: 0;
+          padding: 0;
+          font-family: sans-serif;
+          box-sizing: border-box;
+        }
+        body {
+          height: 100vh;
+          background: url(p1.png);
+          background-size: 100% 100%;
+          overflow: hidden;
+        }
+        h2 {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 80px;
+          position: relative;
+          /* overflow: hidden; */
+        }
+        h2 span {
+          font-size: 70px;
+          color: rgba(255, 255, 255, 0.2);
+          text-transform: uppercase;
+          letter-spacing: 3px;
+          cursor: pointer;
+          transition: 0.5s;
+          margin-top: -10px;
+        }
+        h2:hover span:nth-child(1) {
+          margin-right: 3px;
+        }
+        h2:hover span:nth-child(1)::after {
+          content: "'";
+        }
+        h2:hover span:nth-child(2) {
+          color: rgba(255, 255, 255, 0.2);
+          text-shadow: none;
+        }
+        h2:hover span:nth-child(3) {
+          margin-left: 25px;
+        }
+        h2:hover span {
+          color: rgba(255, 255, 255, 0.5);
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
+                      0 0 10px rgba(255, 255, 255, 0.3),
+                      0 0 20px rgba(255, 255, 255, 0.3),
+                      0 0 40px rgba(255, 255, 255, 0.3),
+                      0 0 60px rgba(255, 255, 255, 0.3),
+                      0 0 80px rgba(255, 255, 255, 0.3);
+        }
+        .chartMenu {
+          width: 100vw;
+          height: 4vh;
+          background: #1A1A1A;
+          color: rgba(54, 162, 235, 1);
+        }
+        .chartMenu p {
+          padding: 10px;
+          font-size: 20px;
+        }
+        .chartCard {
+          /*
+          width: 100vw;
+          height: calc(100vh - 40px);*/
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 20px;
+        }
+        .chartBox {
+          max-width: 800px;
+          width: 100%;
+          margin: auto;
+          padding: 20px;
+          border-radius: 20px;
+          border: solid 3px rgba(0, 0, 0, 0.7);
+          background: white;
+          overflow: hidden;
+          z-index: 2;
+        }
+        .chartBox img {
+          position: relative;
+          top: 30px;
+          left: -50%; 
+          animation: slide 7s linear infinite;
+        }
+        @media (max-width: 600px) {
+          .chartBox {
+            height: 60vh;
+          }
+        }
+        @keyframes slide {
+          to {
+              left: 100%;
+          }
+        }
+        input[type="file"] {
+          display: none;
+        }
+        .btn {
+          background-color: rgba(250, 235, 215, 0.5);
+          color: #1A1A1A; 
+          border: solid 1px #536d8e;
+          border-radius:20px;
+          padding: 0px 10px;
+          min-height: 40px;
+          margin-top: 25px;
+          margin-bottom: 15px;
+          box-shadow: 2px 2px 4px rgba(250, 235, 215, 1);
+          overflow: hidden;
+          position: relative;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 15px;
+          white-space: nowrap;
+        }
+        .btn-box {
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          max-width: 200px; 
+          max-height: 180px;
+          margin: auto;
+          padding: 20px;
+          border-radius: 20px;
+          border: solid 3px rgba(255, 255, 255, 0.5);
+          background: rgba(255, 255, 255, 0.3);
+          overflow: hidden;
+          position: relative;
+        }
+        .btn-container {
+          align-items: center;
+          position: relative;
+        }
+        .btn::before {
+          content: '';
+          width: 0;
+          height: 100%;
+          border-radius: 20px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-image: linear-gradient(to right, rgb(57, 88, 138, 0.3) 0%, rgb(57, 88, 138, 0.7) 50%, rgb(57, 88, 138, 1) 100%);
+          transition: width .5s ease;
+          z-index: -1;
+        }
+        .btn:hover::before {
+          width: 100%;
+        }
+        #selectedFileName {
+          margin-top: -30px;
+          display: block;
+          position: relative;
+        }
+        #excelData {
+          position: absolute;
+          transform: translate(0, 50%);
+          top: 250px;
+          left: calc(5% - 50px);
+          margin-top: 30px;
+          text-align: center;
+        }
+        #excelData table {
+          width: 100%;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+        #excelData th, #excelData td {
+          border: 1px solid rgba(255, 255, 255, 0.7);
+          padding: 5px;
+        }
+        #excelData th:first-child, #excelData td:first-child,
+        #excelData tr:first-child th, #excelData tr:first-child td{
+          background: rgba(255, 255, 255, 0.5);
+        }
+        #optimization {
+          position: absolute;
+          top: 600px;
+          left: calc(5% - 50px);
+          padding: 0px 5px;
+          margin-top: 20px;
+          border-radius: 3px;
+          border: solid 2px rgba(255, 255, 255, 0.3);
+          background: rgba(255, 255, 255, 0.2);
+          font-family: "DFKai-sb";
+        }
+        .star {
+          position: absolute;
+          width: 5px;
+          height: 5px;
+          background-color: #fff;
+          border-radius: 20px;
+          animation: shooting-star 3s linear infinite;
+          z-index: 1;
+        }
+        @keyframes shooting-star {
+          to {
+            transform: translate(-100%, 1000%);
+          }
+        }
       </style>
 </head>
 <body>
-    <!-- <div class="chartCard">
-        <div class="chartBox">
-          <canvas id="myChart2"></canvas>
-        </div>
-    </div>
-    <div class="chartCard">
-        <div class="chartBox">
-          <canvas id="myChart3"></canvas>
-        </div>
-    </div> -->
+  <h2>
+    <span>Johnson</span><span>s</span><span>Rule</span>
+  </h2>
+  <script>
+      function createStar() {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = `${Math.random() * window.innerWidth}px`;
+      star.style.top = `${Math.random() * window.innerHeight}px`;
+      document.body.appendChild(star);
+    }
 
-    <!-- <canvas id="myChart3"></canvas> -->
-    <!-- <canvas id="myChart2"></canvas> -->
+    function createStars() {
+      for (let i = 0; i < 150; i++) {
+        createStar();
+      }
+    }
 
-    <!-- <script src="ThreeJohnsonjs.js"></script> -->
-
+    createStars();
+  </script> 
+    <!-- 初始版 -->
     <!-- <input type="file" id="excelFileInput" accept=".xlsx, .xls"/> <br> -->
-    <label for="excelFileInput">Select an Excel file</label>
+    <!-- <label for="excelFileInput">Select an Excel file</label>
     <input type="file" id="excelFileInput" accept=".xlsx, .xls" onchange="displayFileName(this)"/>
     <span id="selectedFileName"></span>
     <br>
     <button id="implement" onclick="readExcel()">Read Excel</button>
     <button id="example1" onclick="test1()">Example(Two Machine)</button>
-    <button id="example2" onclick="test2()">Example(Three Machine)</button>
+    <button id="example2" onclick="test2()">Example(Three Machine)</button> -->
+    
+    <!-- 最新版 -->
+    <div class="btn-box">
+      <button id="selectFileBtn" class="btn" onclick="selectFile()"><b>Select an Excel file</b></button>
+      <input type="file" id="excelFileInput" accept=".xlsx, .xls" style="display: none;" onchange="displayFileName(this)"/>
+      <span id="selectedFileName"></span>
+      <br>
+      <button id="implement" class="btn" onclick="readExcel()"><b>Read Excel</b></button>
+    </div>
+
     <!-- 這是表格資訊 -->
     <div id="excelData"></div>
     <!-- 最佳化結果 -->
@@ -76,6 +296,7 @@
     <div class="chartCard">
       <div class="chartBox">
         <canvas id="myChart1"></canvas>
+        <img src="g1.gif" alt="Moving GIF" style="height: 200px; width:auto;">
       </div>
     </div>
 
