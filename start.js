@@ -1,5 +1,7 @@
 //schedule = ["Start Time", "End Time", "Machine", "Job Name"]
 function plotGanttChart(n, m, schedule, id, JobNum,jsonData) {
+    var makespan = document.getElementById('makespan');
+    makespan.innerHTML = "Makespan: " + schedule[schedule.length - 1][1].toString() ;
     // 假設你的圖表存儲在一個名為 myChart 的變量中
     if (window.myChart != null) {
         window.myChart.destroy();
@@ -29,8 +31,8 @@ function plotGanttChart(n, m, schedule, id, JobNum,jsonData) {
             temp = [];
         }
     });
-    console.log("labels", labels);
-    console.log(labels);
+    // console.log("labels", labels);
+    // console.log(labels);
     
     for (let i = 0; i < m; i++) {
         RandonColor = `hsl(${i / (m/2) * 180}, 100%, 75%)`;
@@ -77,8 +79,8 @@ function plotGanttChart(n, m, schedule, id, JobNum,jsonData) {
                 },
                 datalabels: {
                     formatter: function (value, context) {
-                        console.log(context)
-                        console.log(value)
+                        // console.log(context)
+                        // console.log(value)
                         return value[1] - value[0];
                     }
                 }
@@ -94,10 +96,13 @@ function johnsonRule2(jobs) {
     // 有幾個工作
     let n = jobs.length;
     // 保存原本的工作排序
-    let jobb = [...jobs];
+    // let jobb = [...jobs];
+    let jobb = JSON.parse(JSON.stringify(jobs));
+    // let jobb = Array.from(jobs);
     // 排序工作由小到大
     jobs.sort((a, b) => Math.min(a[0], a[1]) - Math.min(b[0], b[1]));
-
+    // console.log("jobb:",jobb);
+    // console.log("jobs:",jobs);
     let schedule_job1 = [];  // Front
     let schedule_job2 = [];  // Back
     let machine1_jobs = jobs.map(job => job[0]);
@@ -105,7 +110,10 @@ function johnsonRule2(jobs) {
 
     for (let i = 0; i < n; i++) {
         // 排序好的工作去找原始的索引值
-        let index = jobb.findIndex(job => job[0] === jobs[i][0] && job[1] === jobs[i][1]) + 1;
+        let index = jobb.findIndex(job => job[0] === jobs[i][0] && job[1] === jobs[i][1]) +1;
+        // console.log("index:",index-1,"jobb[index]:",jobb[index-1]);
+        jobb[index-1][0] = -1;
+        jobb[index-1][1] = -1;
         // 判斷工作要放前面還後面(機器一比較小，放在前)
         if (machine1_jobs[i] < machine2_jobs[i]) {
             schedule_job1.push(index);
@@ -120,7 +128,9 @@ function johnsonRule2(jobs) {
 // JavaScript 版本的 Johnson's Rule
 function johnsonRule3(jobs) {
     let n = jobs.length;
-    let jobb = [...jobs];
+    // let jobb = [...jobs];
+    let jobb = JSON.parse(JSON.stringify(jobs));
+    // console.log("jobb:",jobb);
     jobs.sort((a, b) => Math.min(a[0] + a[1], a[1] + a[2]) - Math.min(b[0] + b[1], b[1] + b[2]));
 
     let schedule_job1 = [];  // Front
@@ -129,7 +139,10 @@ function johnsonRule3(jobs) {
     let machine2_jobs = jobs.map(job => job[1] + job[2]);
 
     for (let i = 0; i < n; i++) {
-        let index = jobb.indexOf(jobs[i]) + 1;
+        let index = jobb.findIndex(job => job[0] === jobs[i][0] && job[1] === jobs[i][1] && job[2] === jobs[i][2]) +1;
+        // console.log("index:",index-1,"jobb[index]:",jobb[index-1]);
+        jobb[index-1][0] = -1;
+        jobb[index-1][1] = -1;
         if (machine1_jobs[i] < machine2_jobs[i]) {
             schedule_job1.push(index);
         } else {
@@ -299,11 +312,11 @@ function threeMachine(jsonData) {
         }
     }
 
-    for (var i = 0; i < user_jobs.length; i++) {
-        for (var j = 0; j < user_jobs[0].length; j++) {
-            console.log(user_jobs[i][j]);
-        }
-    }
+    // for (var i = 0; i < user_jobs.length; i++) {
+    //     for (var j = 0; j < user_jobs[0].length; j++) {
+    //         console.log(user_jobs[i][j]);
+    //     }
+    // }
     //複製陣列
     let Ojob = [...user_jobs];
     console.log("用戶輸入的工作：", Ojob);
@@ -360,11 +373,11 @@ function twoMachine(jsonData) {
         }
     }
 
-    for (var i = 0; i < user_jobs.length; i++) {
-        for (var j = 0; j < user_jobs[0].length; j++) {
-            console.log(user_jobs[i][j]);
-        }
-    }
+    // for (var i = 0; i < user_jobs.length; i++) {
+    //     for (var j = 0; j < user_jobs[0].length; j++) {
+    //         console.log(user_jobs[i][j]);
+    //     }
+    // }
     //複製陣列
     let Ojob = [...user_jobs];
     console.log("用戶輸入的工作：", Ojob);
@@ -389,14 +402,14 @@ function twoMachine(jsonData) {
             time.push(timeCounterMachine2);
         } else {
             timeCounterMachine2 = timeCounterMachine1;
-            console.log(timeCounterMachine2);
+            // console.log(timeCounterMachine2);
             schedule.push([timeCounterMachine2, timeCounterMachine2 + Ojob[job - 1][1], "Machine2", job.toString()]);
             timeCounterMachine2 += Ojob[job - 1][1];
             time.push(timeCounterMachine2);
         }
     }
-    console.log(user_jobs.length);
-    console.log(user_jobs.length, schedule);
+    // console.log(user_jobs.length);
+    // console.log(user_jobs.length, schedule);
     // plotGanttChart(user_jobs[0].length, user_jobs.length, schedule,'myChart2'); // 畫圖
     plotGanttChart(user_jobs[0].length, user_jobs.length, schedule, 'myChart1', userOptimalSchedule,jsonData); // 畫圖
 }
