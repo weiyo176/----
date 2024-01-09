@@ -114,16 +114,12 @@
           width: 100vw;
           height: calc(100vh - 40px);*/
           width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
           margin-top: 2vh;
         }
         .chartBox {
-          max-width: 50vw;
-          width: 100%;
+          width: auto;
           margin: auto;
-          padding: 2vh;
+          padding: 20px;
           border-radius: 20px;
           border: solid 3px rgba(0, 0, 0, 0.7);
           background: white;
@@ -136,11 +132,7 @@
           left: -50%; 
           animation: slide 7s linear infinite;
         }
-        @media (max-width: 600px) {
-          .chartBox {
-            height: 60vh;
-          }
-        }
+        
         @keyframes slide {
           to {
               left: 100%;
@@ -154,10 +146,10 @@
           color: #1A1A1A; 
           border: solid 1px #536d8e;
           border-radius: 20px;
-          padding: 1.5vh 1vw;
-          min-height: 4vh;
-          margin-top: 2.5vh;
-          margin-bottom: 2vh;
+          padding: 0px 10px;
+          min-height: 40px;
+          margin-top: 25px;
+          margin-bottom: 15px;
           box-shadow: 2px 2px 4px rgba(250, 235, 215, 1);
           overflow: hidden;
           position: relative;
@@ -166,17 +158,17 @@
           transform: translate(-50%, -50%);
           font-size: 15px;
           white-space: nowrap;
-          cursor: url('peo1052.cur'), auto;
+          cursor: url('mov138.cur'), auto;
         }
         .btn-box {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          max-width: 15vw; 
-          max-height: 13vw;
-          padding: 2vw;
+          max-width: 250px; 
+          max-height: 220px;
+          padding-top: 20px;
           margin: auto;
-          margin-top: 2vh;
+          margin-top: 3vh;
           border-radius: 20px;
           border: solid 3px rgba(255, 255, 255, 0.5);
           background: rgba(255, 255, 255, 0.3);
@@ -203,20 +195,22 @@
           width: 100%;
         }
         #selectedFileName {
-          margin-top: -3vh;
+          margin-top: -4vh;
           display: block;
           position: relative;
           white-space: nowrap;
+          text-align: center;
+          font-family: 'DFKai-sb';
         }
         #excelData.twomachine {
-          position: absolute;
+          /* position: absolute; */
           top: 40vh;
           left: 5%;
           text-align: center;
           margin-top: 2vh;
         }
         #excelData.threemachine {
-          position: absolute;
+          /* position: absolute; */
           top: 40vh;
           left: calc(5% - 70px);
           text-align: center;
@@ -238,7 +232,7 @@
           font-weight: bold;
         }
         #optimization.twomachine {
-          position: absolute;
+          /* position: absolute; */
           top: 40vh;
           margin-top: 2vh;
           left: calc(80% - 50px);
@@ -250,7 +244,7 @@
           font-family: "DFKai-sb";
         }
         #optimization.threemachine {
-          position: absolute;
+          /* position: absolute; */
           top: 40vh;
           margin-top: 2vh;
           left: calc(80% - 50px);
@@ -274,6 +268,9 @@
           to {
             transform: translate(-100%, 1000%);
           }
+        }
+        #data {
+          width: 500px;
         }
       </style>
 </head>
@@ -317,11 +314,8 @@
       <button id="implement" class="btn" onclick="readExcel()"><b>Read Excel</b></button>
     </div>
 
-    <!-- 這是表格資訊 -->
-    <div id="excelData"></div>
-    <!-- 最佳化結果 -->
-    <div id="optimization"></div>
 
+    
     <!-- 這是最終預定會用到的canvas -->
     <div class="chartCard">
       <div class="chartBox">
@@ -329,8 +323,15 @@
         <img src="g1.gif" alt="Moving GIF" style="height: 150px; width:auto;">
       </div>
     </div>
+    <div id="data">
+      <!-- 這是表格資訊 -->
+      <div id="excelData"></div>
+      <!-- 最佳化結果 -->
+      <div id="optimization"></div>
 
-
+    </div>
+    
+    
     <script src="start.js"></script>
 
 </body>
