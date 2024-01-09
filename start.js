@@ -311,7 +311,22 @@ function threeMachine(jsonData) {
             user_jobs[i - 1][j - 1] = jsonData[i][j];
         }
     }
+    // 找出每個機器的最短和最長加工時間
+    let minTimeMachine1 = Math.min(...user_jobs.map(job => job[0]));
+    let maxTimeMachine2 = Math.max(...user_jobs.map(job => job[1]));
+    let minTimeMachine3 = Math.min(...user_jobs.map(job => job[2]));
 
+    // 檢查條件
+    if (minTimeMachine1 >= maxTimeMachine2 || minTimeMachine3 >= maxTimeMachine2) {
+        // 如果滿足任一條件，則繼續執行
+        console.log("條件滿足，可以繼續執行");
+    } else {
+        // 如果兩個條件都不滿足，則停止執行並返回一個錯誤訊息
+        //網頁跳出警告視窗並顯示每個機器的最短和最長加工時間
+        alert("條件不滿足，請檢查每個機器的最短和最長加工時間"+'\n'+"機器1最短加工時間："+minTimeMachine1+'\n'+"機器2最長加工時間："+maxTimeMachine2+'\n'+"機器3最短加工時間："+minTimeMachine3);
+        
+        return;
+    }
     // for (var i = 0; i < user_jobs.length; i++) {
     //     for (var j = 0; j < user_jobs[0].length; j++) {
     //         console.log(user_jobs[i][j]);
