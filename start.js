@@ -324,7 +324,7 @@ function threeMachine(jsonData) {
         // 如果兩個條件都不滿足，則停止執行並返回一個錯誤訊息
         //網頁跳出警告視窗並顯示每個機器的最短和最長加工時間
         alert("條件不滿足，請檢查每個機器的最短和最長加工時間"+'\n'+"機器1最短加工時間："+minTimeMachine1+'\n'+"機器2最長加工時間："+maxTimeMachine2+'\n'+"機器3最短加工時間："+minTimeMachine3);
-        
+        location.reload();
         return;
     }
     // for (var i = 0; i < user_jobs.length; i++) {
