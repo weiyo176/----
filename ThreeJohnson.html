@@ -50,17 +50,21 @@
         }
         body {
           height: 100vh;
-          background: url(p1.png);
+          background-color: #BAD1E6;
           background-size: 100% 100%;
-          overflow: hidden;
+          overflow: auto;
         }
         h2 {
+          background-image: url(p01.png);
+          width: 100%;
+          height: auto;
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 80px;
           position: relative;
+          padding-top: 2vh;
           /* overflow: hidden; */
+        
         }
         h2 span {
           font-size: 70px;
@@ -69,10 +73,12 @@
           letter-spacing: 3px;
           cursor: pointer;
           transition: 0.5s;
-          margin-top: -10px;
+          margin-top: -1vh;
+          cursor: default;
+
         }
         h2:hover span:nth-child(1) {
-          margin-right: 3px;
+          margin-right: 0.05vw;
         }
         h2:hover span:nth-child(1)::after {
           content: "'";
@@ -82,7 +88,7 @@
           text-shadow: none;
         }
         h2:hover span:nth-child(3) {
-          margin-left: 25px;
+          margin-left: 20px;
         }
         h2:hover span {
           color: rgba(255, 255, 255, 0.5);
@@ -100,7 +106,7 @@
           color: rgba(54, 162, 235, 1);
         }
         .chartMenu p {
-          padding: 10px;
+          padding: 20px;
           font-size: 20px;
         }
         .chartCard {
@@ -111,13 +117,13 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-top: 20px;
+          margin-top: 2vh;
         }
         .chartBox {
-          max-width: 800px;
+          max-width: 50vw;
           width: 100%;
           margin: auto;
-          padding: 20px;
+          padding: 2vh;
           border-radius: 20px;
           border: solid 3px rgba(0, 0, 0, 0.7);
           background: white;
@@ -126,7 +132,7 @@
         }
         .chartBox img {
           position: relative;
-          top: 30px;
+          top: 3vh;
           left: -50%; 
           animation: slide 7s linear infinite;
         }
@@ -147,11 +153,11 @@
           background-color: rgba(250, 235, 215, 0.5);
           color: #1A1A1A; 
           border: solid 1px #536d8e;
-          border-radius:20px;
-          padding: 0px 10px;
-          min-height: 40px;
-          margin-top: 25px;
-          margin-bottom: 15px;
+          border-radius: 20px;
+          padding: 1.5vh 1vw;
+          min-height: 4vh;
+          margin-top: 2.5vh;
+          margin-bottom: 2vh;
           box-shadow: 2px 2px 4px rgba(250, 235, 215, 1);
           overflow: hidden;
           position: relative;
@@ -160,15 +166,17 @@
           transform: translate(-50%, -50%);
           font-size: 15px;
           white-space: nowrap;
+          cursor: url('peo1052.cur'), auto;
         }
         .btn-box {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          max-width: 200px; 
-          max-height: 180px;
+          max-width: 15vw; 
+          max-height: 13vw;
+          padding: 2vw;
           margin: auto;
-          padding: 20px;
+          margin-top: 2vh;
           border-radius: 20px;
           border: solid 3px rgba(255, 255, 255, 0.5);
           background: rgba(255, 255, 255, 0.3);
@@ -195,23 +203,24 @@
           width: 100%;
         }
         #selectedFileName {
-          margin-top: -30px;
+          margin-top: -3vh;
           display: block;
           position: relative;
-        }
-        #excelData.threemachine {
-          position: absolute;
-          transform: translate(0, 50%);
-          top: 240px;
-          left: calc(5% - 65px);
-          text-align: center;
+          white-space: nowrap;
         }
         #excelData.twomachine {
           position: absolute;
-          transform: translate(0, 50%);
-          top: 300px;
-          left: calc(5% - 50px);
+          top: 40vh;
+          left: 5%;
           text-align: center;
+          margin-top: 2vh;
+        }
+        #excelData.threemachine {
+          position: absolute;
+          top: 40vh;
+          left: calc(5% - 70px);
+          text-align: center;
+          margin-top: 2vh;
         }
         #excelData table {
           width: 100%;
@@ -220,7 +229,7 @@
         }
         #excelData th, #excelData td {
           border: 1px solid rgba(255, 255, 255, 0.7);
-          padding:0px 5px;
+          padding:0 0.5vw;
         }
         #excelData th:first-child, #excelData td:first-child,
         #excelData tr:first-child th, #excelData tr:first-child td{
@@ -228,21 +237,25 @@
           font-size: 13px;
           font-weight: bold;
         }
-        #optimization.threemachine {
+        #optimization.twomachine {
           position: absolute;
-          top: 650px;
-          left: calc(5% - 65px);
-          padding: 0px 3px;
+          top: 40vh;
+          margin-top: 2vh;
+          left: calc(80% - 50px);
+          right: calc(5% - 50px);
+          padding: 0 0.5vw;
           border-radius: 3px;
           border: solid 2px rgba(255, 255, 255, 0.3);
           background: rgba(255, 255, 255, 0.2);
           font-family: "DFKai-sb";
         }
-        #optimization.twomachine {
+        #optimization.threemachine {
           position: absolute;
-          top: 550px;
-          left: calc(5% - 50px);
-          padding: 0px 5px;
+          top: 40vh;
+          margin-top: 2vh;
+          left: calc(80% - 50px);
+          right: calc(5% - 50px);
+          padding: 0 0.5vw;
           border-radius: 3px;
           border: solid 2px rgba(255, 255, 255, 0.3);
           background: rgba(255, 255, 255, 0.2);
@@ -313,7 +326,7 @@
     <div class="chartCard">
       <div class="chartBox">
         <canvas id="myChart1"></canvas>
-        <img src="g1.gif" alt="Moving GIF" style="height: 200px; width:auto;">
+        <img src="g1.gif" alt="Moving GIF" style="height: 150px; width:auto;">
       </div>
     </div>
 
